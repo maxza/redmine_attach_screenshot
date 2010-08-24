@@ -7,3 +7,8 @@ function hideAttachScreen() {
 function deleteAttachScreen(fileId) {
     p.removeChild(document.getElementById(fileId + "_screenshot"));
 }
+function InsertAttachScreen(fileId) {
+    if (wikiToolbar){
+	wikiToolbar.encloseSelection("!"+fileId+"!","");
+    }
+}

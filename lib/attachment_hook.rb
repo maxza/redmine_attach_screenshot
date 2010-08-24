@@ -49,10 +49,16 @@ module AttachScreenshotPlugin
           end
           if a.new_record?
             unsaved += 1
-          elsif journal
-            journal.details << JournalDetail.new(:property => 'attachment',
-                                                 :prop_key => a.id,
-                                                 :value => a.filename)
+          else
+            if journal
+              journal.details << JournalDetail.new(:property => 'attachment',
+                                                   :prop_key => a.id,
+                                                   :value => a.filename)
+              journal[:notes] = journal[:notes].gsub("!" + key + "!", "!" + url_for (:controller => 'attachments', :id=> a, :filename => a.filename, :action => "show" ) +"!")
+            else
+              issue[:description] = issue[:description].gsub("!" + key + "!", "!" + url_for (:controller => 'attachments', :id=> a, :filename => a.filename, :action => "show" ) +"!")
+              issue.save()
+            end
           end
         end
         if unsaved > 0

@@ -13,7 +13,7 @@
 </small>
 <br />
 <br />
-<% if @issue %>
+<% if @issue  %>
 <% if @issue.new_record? %>
     <label>
 <% end %>
@@ -67,6 +67,11 @@
         b.src = "/images/delete.png"
         b.setAttribute("onClick", "deleteAttachScreen('" + fileId + "'); return false;");
 
+	var i = document.createElement("input");
+	i.type = "image";
+	i.src = "/images/lightning.png";
+	i.setAttribute("onClick", "InsertAttachScreen('" + fileId + "'); return false;");
+
         var d = document.createElement("input");
         d.name = "screenshots[" + fileId + "][description]";
         d.type = "text";
@@ -76,6 +81,7 @@
         s.appendChild(s1);
         s2.appendChild(d);
         s2.appendChild(b);
+        s2.appendChild(i);
         s.appendChild(s2);
 
         p = document.getElementById("screenshots");
