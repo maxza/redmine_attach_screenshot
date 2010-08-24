@@ -1,0 +1,10 @@
+cs:
+  label_screenshots: Snímky obrazovky
+  label_add_another_screenshot: Přidat další snímek
+  label_button_paste: Vložit obrázek ze schránky
+  label_image: Snímek obrazovky
+  button_attach: Přiložit
+  error_close_msg: Nelze zavřít applet, {0}
+  error_close_title: Chyba
+  error_attach_msg: Chyba, {0}
+  error_attach_title: Chyba při přikládání
