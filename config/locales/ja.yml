@@ -1,0 +1,10 @@
+ja:
+  label_screenshots: スクリーンショット
+  label_add_another_screenshot: 別のスクリーンショット
+  label_button_paste: クリップボードから画像を貼り付け
+  label_image: スクリーンショット
+  button_attach: 添付
+  error_close_msg: アプレットを終了できません, {0}
+  error_close_title: エラー
+  error_attach_msg: エラー, {0}
+  error_attach_title: 添付エラー
