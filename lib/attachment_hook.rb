@@ -32,7 +32,7 @@ module AttachScreenshotPlugin
             File.size(path())
           end
           def file.original_filename
-            "screenshot.png"
+            File.basename(path())
           end
           
           a = Attachment.create(:container => issue,
