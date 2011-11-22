@@ -28,3 +28,21 @@ span.screen_thumb .st2 {
   display: block;
   text-align: center;
 }
+
+.screenshot_button{
+  margin-right: 6px;
+  width: 26px;
+  height: 26px;
+  padding: 4px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #DDD;
+  background-color: #F7F7F7;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-image: url(/plugin_assets/redmine_attach_screenshot/images/capture-24x24.png);
+}
+
+.screenshot_button span {
+  display: none;
+}
