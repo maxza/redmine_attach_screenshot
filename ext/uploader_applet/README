@@ -1,0 +1,75 @@
+Some notes for the uploader applet for the redmine_attach_screenshot plugin
+===========================================================================
+
+The jar file that can be created with the help of the Ant build file must be
+signed to be used in a browser. It is sufficient to create a new key and use
+it for selfsigning. Below there are two instructions I found in the web
+(references at the end) that I found helpful for this process.
+
+Also Axmor (the ones having originally written the plugin and the applet)
+allowed the decompilation and modification of it as long as it is made sure
+that it is not signed by Axmor (no problem, we don't have the key anyway).
+
+To sign the jar [1]:
+===================
+
+To get your signing data (keys and certificate):
+
+    Generate an RSA key pair using keytools "-genkey -keyalg rsa" options.
+    A bit of explanation is in order. Since the public key, private key and certificate (if any) are all related, they're stored together in the keystore and referred to with an alias. You might want to specify a particular keystore file to use (or be created) rather than using the default one in your home directory. Since the keystore contains the signing data necessary to sign something as you (or your company) it should be guarded carefully. Picking your own filename may also make it easier to back it up or to keep limit others' access to it. Although the file is password protected, if someone can access it (even to copy it), they can apply any amount of time and resources necessary to crack the password and get at your signing data.
+
+    Your command line might look like the following:
+
+    keytool -genkey -keyalg rsa -alias MyAlias -keystore a:\mystore
+
+    keytool will then read additional info from stdin. See the keytool documentation for further info. Make sure the distinguished name you enter (which can include address information as well as corporate or personal name) contains all the pieces which your Certificate Authority needs. Check your Certificate Authority's Web site first. Generally, you will have to use your legal name exactly how it's spelled on your paper credentials.
+    Generate a certificate request to sent to your CA. The certificate request contains your distinguished name, your public key and possibly some other data. Most CAs will have a Web form for you to fill out with personal info and a field in which to paste the certificate request.
+
+    keytool -certreq -alias MyAlias -keystore a:\mystore
+
+    will generate output like
+
+    -----BEGIN NEW CERTIFICATE REQUEST-----
+    MIIBtjCCAR8CAQAwdjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRIwE
+    AYDVQQHEwlDdXBlcnRpbm8xGTAXBgNVBAoTEFN1biBNaWNyb3N5c3RlbX
+    MxFjAUBgNVBAsTDUphdmEgU29mdHdhcmUxEzARBgNVBAMTClN0YW5sZXk
+    gSG8wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALTgU8PovA4y59eb
+    oPjY65BwCSc/zPqtOZKJlaW4WP+UhmebE+T2Mho7P5zXjGf7elo3tV5uI
+    3vzgGfnhgpf73EoMow8EJhly4w/YsXKqeJEqqvNogzAD+qUv7Ld6dLOv0
+    CO5qvpmBAO6mfaI1XAgx/4xU/6009jVQe0TgIoocB5AgMBAAGgADANBgk
+    qhkiG9w0BAQQFAAOBgQAWmLrkifKiUYtd4ykhBtPWSwW/IKkgyfIuNMML
+    dF1DH8neSnXf3ZLI32f2yXvs7u3/xn6chnTXh4HYCJoGYOAbB3WNbAoQR
+    i6u6TLLOvgv9pMNUo6v1qB0xly1faizjimVYBwLhOenkA3Bw7S8UIVfdv
+    84cO9dFUGcr/Pfrl3GtQ==
+    -----END NEW CERTIFICATE REQUEST-----
+
+    After verifying who your are, your CA will sent you a certificate (typically by e-mail). Save it to a file and import it into the keystore.
+
+    keytool -import -alias MyAlias -keystore a:\mystore -file MyVeriSignCert.cer
+
+Now, to sign your applet, do the following.
+
+jarsigner -keystore a:\mystore myApplet.jar MyAlias
+
+Selfsigning [2]:
+===============
+
+    1. Package the applet into a JAR file. The applet must be in a JAR file before a certificate can be attached to it. Use the jar JDK utility. If the applet was previously referenced with the help of a codebase attribute in <applet> tag, replace the codebase attribute with the archive attribute. The value of the archive attribute is a URL of a JAR file.
+    Create a public/private key pair. The command for this is
+
+        keytool -genkey 
+
+    2. keytool is another SDK utility. It will prompt you for a password to your keystore and for the remaining parameters, one of which is alias, whose value is the name of the key. The keystore is a file that contains your public/private key-pairs, and the public-keys of others with whom you exchange information. See the documentation in the above link.
+    Create a certificate for the key you created in the previous step.
+
+        keytool -selfcert 
+
+    3. Again, keytool will prompt you for a keystore password and remaining parameters. This certificate is now self-signed by you, meaning that it has not been validated by any third party. This is suitable for demo purposes, and may be acceptable to yourself and those who know you because if there is any doubt that the certificate is really yours they can always call you up and ask you for the digest to verify that it is really you and not some impostor that created the certificate. However, if this applet were to be widely distributed, and you wanted it to be accepted by those who do not know you personally, you would certainly want to pay a modest fee to obtain a certificate that is validated by a trusted certificate authority. The procedure for this is straightforward, but beyond the scope of this simple tutorial.
+
+    4. Run jarsigner associate this certificate with the JAR file that contains your applet. You will need to give the name of the public key of the certificate you just created. This creates a digest for each file in your JAR and signs them with your private key. These digests or hashes, the public key, and the certificate will all be included in the "WEB-INF" directory of the JAR.
+
+References
+==========
+
+[1] http://support.sas.com/rnd/appdev/V30/tech/signing/RSASigning.htm
+[2] http://www-personal.umich.edu/~lsiden/tutorials/signed-applet/signed-applet.html
