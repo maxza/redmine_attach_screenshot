@@ -7,7 +7,7 @@ class AttachScreenshotController < ApplicationController
   accept_key_auth :index
 
   def index
-    path = "#{RAILS_ROOT}/tmp/"
+    path = "/tmp/"
     if request.post?
       date = DateTime.now.strftime("%H%M%S")
       @fname = make_tmpname(date)                 

@@ -21,7 +21,7 @@ module AttachScreenshotPlugin
 
     def self.cleanup      
       ss = sprintf('%d_', User.current.id)
-      Find.find("#{RAILS_ROOT}/tmp/") do |f|
+      Find.find("/tmp/") do |f|
         if (f[ss]!=nil)
           File.delete(f)
         end

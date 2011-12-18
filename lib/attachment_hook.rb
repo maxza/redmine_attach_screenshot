@@ -17,7 +17,7 @@ module AttachScreenshotPlugin
         screenshots.each_pair do |key, screenshot|
           screenshot_count += 1
           key = key.gsub("thumb", "screenshot")
-          path = "#{RAILS_ROOT}/tmp/" + key
+          path = "/tmp/" + key
           file = File.open(path, "rb")
 
           unless file && File.size(path) > 0
@@ -42,7 +42,7 @@ module AttachScreenshotPlugin
           file.close()
           File.delete(path)
           key = key.gsub("screenshot", "thumb")
-          path = "#{RAILS_ROOT}/tmp/" + key
+          path = "/tmp/" + key
           begin
             File.delete(path)
           rescue
