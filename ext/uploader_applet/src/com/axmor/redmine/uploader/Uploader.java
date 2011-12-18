@@ -152,7 +152,7 @@ public class Uploader extends JApplet
       outStream.write("Content-Disposition: file; name=\"attachments\"; filename=\"screenshot.png\"\r\nContent-Type: image/png\r\nContent-Transfer-Encoding: binary\r\n\r\n".getBytes("UTF-8"));
 
       ImageIO.write(image, "png", outStream);
-      outStream.write(("\r\n--" + boundary + "\r\n").getBytes("UTF-8"));
+      outStream.write(("\r\n--" + boundary + "--\r\n").getBytes("UTF-8"));
     } finally {
       outStream.close();
     }
