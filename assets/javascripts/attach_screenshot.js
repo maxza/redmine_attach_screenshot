@@ -9,6 +9,6 @@ function deleteAttachScreen(fileId) {
 }
 function InsertAttachScreen(fileId) {
     if (wikiToolbar){
-	wikiToolbar.encloseSelection("!"+fileId+"!","");
+	wikiToolbar.encloseSelection("!"+fileId+"!\n","");
     }
 }

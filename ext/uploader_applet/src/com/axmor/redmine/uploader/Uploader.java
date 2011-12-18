@@ -63,7 +63,7 @@ public class Uploader extends JApplet
     };
 
     Dimension s = size();
-    setSize(s.width, s.height);
+    setSize(s.width - 1, s.height - 1);
     JPanel mainPanel = new JPanel(new BorderLayout(10, 5), true);
 
     this.canvas = new ImagePanel();

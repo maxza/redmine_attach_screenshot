@@ -56,6 +56,7 @@
                                                              'Applet</applet>';
     }
     function addAttachScreen(fileId) {
+        InsertAttachScreen(fileId);
         var s = document.createElement("span");
         s.id = fileId + "_screenshot";
         s.className = "screen_thumb";
