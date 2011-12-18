@@ -62,7 +62,8 @@ public class Uploader extends JApplet
 
     };
 
-    setSize(400, 400);
+    Dimension s = size();
+    setSize(s.width, s.height);
     JPanel mainPanel = new JPanel(new BorderLayout(10, 5), true);
 
     this.canvas = new ImagePanel();
@@ -110,7 +111,7 @@ public class Uploader extends JApplet
 
     getContentPane().add(mainPanel);
 
-    pasteImageFromClipboard();
+    this.attachButton.setEnabled(false);
   }
 
   private void attachImage()
