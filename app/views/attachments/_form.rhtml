@@ -43,15 +43,15 @@
     function showAttachScreen() {
         document.getElementById('attach_applet').style.display = 'block';
         document.getElementById('attach_applet').innerHTML = '<applet codebase="<%= url_for(:only_path => false, :controller => 'welcome')%>plugin_assets/redmine_attach_screenshot/javascripts/" code="com.axmor.redmine.uploader.Uploader.class" archive="uploader_applet.jar" height="500" width="600" MAYSCRIPT>'+
-                                                             '<param name="label.image" value="<%= l(:label_image) %>">' +
-                                                             '<param name="label.button.paste" value="<%= l(:label_button_paste) %>">' +
-                                                             '<param name="label.button.attach" value="<%= l(:button_attach) %>">' +
-                                                             '<param name="label.button.cancel" value="<%= l(:button_cancel) %>">' +
-                                                             '<param name="error.close.msg" value="<%= l(:error_close_msg) %>">' +
-                                                             '<param name="error.close.title" value="<%= l(:error_close_title) %>">' +
-                                                             '<param name="attach.url" value="<%= url_for(:only_path => false, :controller => 'welcome')%>attach_screenshot">' +
-                                                             '<param name="error.attach.msg" value="<%= l(:error_attach_msg) %>">' +
-                                                             '<param name="error.attach.title" value="<%= l(:error_attach_title) %>">'	 +
+                                                             "<param name=\"label.image\" value=\"<%= l(:label_image) %>\">" +
+                                                             "<param name=\"label.button.paste\" value=\"<%= l(:label_button_paste) %>\">" +
+                                                             "<param name=\"label.button.attach\" value=\"<%= l(:button_attach) %>\">" +
+                                                             "<param name=\"label.button.cancel\" value=\"<%= l(:button_cancel) %>\">" +
+                                                             "<param name=\"error.close.msg\" value=\"<%= l(:error_close_msg) %>\">" +
+                                                             "<param name=\"error.close.title\" value=\"<%= l(:error_close_title) %>\">" +
+                                                             "<param name=\"attach.url\" value=\"<%= url_for(:only_path => false, :controller => 'welcome')%>attach_screenshot\">" +
+                                                             "<param name=\"error.attach.msg\" value=\"<%= l(:error_attach_msg) %>\">" +
+                                                             "<param name=\"error.attach.title\" value=\"<%= l(:error_attach_title) %>\">"	 +
                                                              '<param name="rss.key" value="<%= User.current.rss_key %>">'	 +
                                                              'Applet</applet>';
     }
